@@ -1,4 +1,4 @@
-# learing-golang through [BootDev](https://boot.dev) platform
+# Learning Go Programming language through [BootDev](https://boot.dev) platform
 
 ## Datatypes
 
