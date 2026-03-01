@@ -29,4 +29,13 @@ func main() { // =====> ENTRY POINT OF THE PROGRAM
 
 	x, y := getCords();
 	fmt.Printf("X: %d, Y: %d\n", x, y)
+
+	printHelloWorld();
+}
+
+func printHelloWorld() {
+	defer fmt.Println("Two times") 
+	defer fmt.Println("World") // this function's execution is defer to just before enclosing function returns
+
+	fmt.Println("Hello")
 }

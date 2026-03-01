@@ -42,3 +42,7 @@ Constants are the variables which are immutable while the program is running. Th
 ## Printing in Go
 
 Go follows C style of printing using `fmt` package along with formatting verbs like `%v`, `%d`, `%f` etc.
+
+## Defer keyword in Go
+
+`defer` keyword is a special feature in Go lang to defer a function's execution until the enclosing function returns. All deferred functions are executed in `LIFO`. Think of like all deferred functions goes into stack, and each function is popped and executed one by one before enclosing function returns itself. It is best way to run a piece of code just before each return statement by writting it once like closing db connections, or cleaning up resources.
