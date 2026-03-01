@@ -18,6 +18,9 @@ func main() { // =====> ENTRY POINT OF THE PROGRAM
 	var mySkillIssues int
 	fmt.Println(mySkillIssues)
 
+	var declaredStr string;
+	fmt.Printf("Declared String: %s\n", declaredStr)
+
 	// Goated way using walrus operator (:=).
 	// It declares and assigns value in the same line along with automatic type inference based on value
 	aiSkillIssues := 1000

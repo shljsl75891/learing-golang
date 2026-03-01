@@ -46,3 +46,54 @@ Go follows C style of printing using `fmt` package along with formatting verbs l
 ## Defer keyword in Go
 
 `defer` keyword is a special feature in Go lang to defer a function's execution until the enclosing function returns. All deferred functions are executed in `LIFO`. Think of like all deferred functions goes into stack, and each function is popped and executed one by one before enclosing function returns itself. It is best way to run a piece of code just before each return statement by writting it once like closing db connections, or cleaning up resources.
+
+## Datastructures in GO
+
+#### Structs
+
+Structs are custom data types that allow you to group together related data. They are similar to objects in JS or dictionaries in Python. Structs can also contains other structs (known as nested structs) as fields for creating complex data structures.
+
+```go
+type message struct { // Uppercase Name = Exported (Public), Lowercase Name = Unexported (Private)
+    text: string
+    sender: user
+    recipient: user
+}
+
+type user struct {
+    name string
+    age int
+}
+
+type car struct {
+  brand string
+  model string
+  doors int
+  mileage int
+  // wheel is a field containing an anonymous struct = Always prefer named struct. Use this only when you need it just once, and not reusable anywhere else in the codebase.
+ wheel struct {
+    radius int
+    material string
+  }
+}
+
+type car struct {
+  brand string
+  model string
+}
+
+type truck struct {
+    // embedded struct for just data only inheritance (actually composition). the fields of embedded struct can be accessed directly from the top level unlike nested struct
+    car
+    bedSize int
+}
+
+// Methods on structs
+func (c car) upgradeModel() {
+    c.model = "New Model" // This will not change original model, as the whole struct is passed by value (completely new copy of struct is passed)
+}
+
+func (c *car) upgradeModel() {
+    c.model = "New Model" // This will change original model, as the struct is now passed by reference (pointer to original struct is passed)
+}
+```
