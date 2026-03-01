@@ -97,3 +97,21 @@ func (c *car) upgradeModel() {
     c.model = "New Model" // This will change original model, as the struct is now passed by reference (pointer to original struct is passed)
 }
 ```
+
+###### Memory layout of struct
+
+In Go, the struct sit in memory in contiguous block with fields one after another. For efficient execution speed, Go may add padding between fields to ensure proper memory alignment.
+
+> Alignment = Size of the primitive type (upto CPU's word size). For eg. for 64 bit architecture, the word size is 8 bytes. Modern CPUs don't read 1 byte at a time, but the fixed size chunks called words. When the CPU wants to fetch data, it fetches an entire word at a time from an address that is a multiple of the word size. This is called memory alignment. Thus, it means the each field of struct must start on address i.e. mutiple of its own size (upto word size). The total size of the struct is finally rounded up to a multiple of largest alignment of any of its fields.
+
+![](/assets/2026-03-01-16-52-41.png)
+
+So, the order of fields in struct can affect the memory layout and performance. To minimize padding and optimize memory usage, it is generally recommended to order fields from largest to smallest size.
+
+> Empty Structs are the smallest possible type in Go. It takes 0 bytes of memory
+>
+> ```go
+> type empty struct {}
+> empty 1 := empty{}
+> empty2 := struct{}{}
+> ```
