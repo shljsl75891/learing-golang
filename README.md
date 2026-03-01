@@ -38,3 +38,7 @@
 Constants are the variables which are immutable while the program is running. The walrus operator `:=` cannot be used to declare constants. Go has kept this syntactical difference to make it clear that the value is a constant and its value must be known at the compile time, but the `var` are mutable and their values can be changed while runtime. We can use constants for computed values as long as they can be known to compiler at compile time.
 
 ![](/assets/2026-02-28-11-22-46.png)
+
+## Printing in Go
+
+Go follows C style of printing using `fmt` package along with formatting verbs like `%v`, `%d`, `%f` etc.

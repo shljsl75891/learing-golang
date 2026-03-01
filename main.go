@@ -2,8 +2,14 @@ package main // Let's go compiler knows that this program is supposed to be run 
 
 import (
 	"fmt" // Import the formatting package from the standard library
-	"time"
 )
+
+func getCords() (x, y int) { // Named returns = These named vairables are automatically declared at the top of the function body. These should be used for documenting short functions only
+	x, y = 5, 6;
+	return; // Naked return = The latest value of named variables declared at the top of function are returned
+
+	// return 9, 10; ==> Explicit return
+}
 
 func main() { // =====> ENTRY POINT OF THE PROGRAM
 	fmt.Println("Starting the Textio server")
@@ -21,6 +27,6 @@ func main() { // =====> ENTRY POINT OF THE PROGRAM
 	const firstName = "Sahil"
 	const lastName = "Jassal"
 
-	const fullName = firstName + " " + lastName
-	const currentTime = time.Now()
+	x, y := getCords();
+	fmt.Printf("X: %d, Y: %d\n", x, y)
 }
