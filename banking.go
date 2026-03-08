@@ -22,24 +22,23 @@ type bankingOperation interface {
 	credit(amount float64) (float64, error)
 }
 
-func (a account) withdrawal(amount float64) (float64, error){
+func (a account) withdrawal(amount float64) (float64, error) {
 	if a.balance < amount {
-		return float64(0),errors.New("insufficient balance")
+		return float64(0), errors.New("insufficient balance")
 	}
 	a.balance -= amount
 	return a.balance, nil
 }
 
-func (a account) credit(amount float64) (float64, error){
+func (a account) credit(amount float64) (float64, error) {
 	if amount < 0 {
-		return 0, a;
+		return 0, a
 	}
 	a.balance += amount
 	return a.balance, nil
 }
 
-
-func performBankingOperation(b bankingOperation,amount float64, operation string) (float64, error){
+func performBankingOperation(b bankingOperation, amount float64, operation string) (float64, error) {
 	// panic("Banking operation interrupted !!!");
 	// log.Fatal("Banking operation interrupted !!!");
 	switch operation {
@@ -51,4 +50,3 @@ func performBankingOperation(b bankingOperation,amount float64, operation string
 		return 0.0, nil
 	}
 }
-
