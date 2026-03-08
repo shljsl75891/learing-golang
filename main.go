@@ -33,7 +33,7 @@ func main() { // =====> ENTRY POINT OF THE PROGRAM
 	x, y := getCords();
 	fmt.Printf("X: %d, Y: %d\n", x, y)
 
-	fmt.Println("The hello world must be printed now")
+	learnSlices();
 }
 
 func printHelloWorld() {
@@ -56,4 +56,25 @@ func printHelloWorld() {
 	fmt.Printf("Balance after withdrawal: %.1f\n", balance)
 }
 
+func learnSlices() {
+	arrays := [3]int{1, 2, 3};
+	slices := []int{1, 2, 3, 4, 5};
 
+	fmt.Printf("Array is fixed size: %v, but slices are dynamically sized (although just a abstracted underlying array): %v\n", arrays, slices);
+
+	for i := 0; i < len(arrays); i++ {
+		fmt.Printf("%d ", i);
+	}
+
+	fmt.Printf("\nThe capacity of slice %v is %d and its length is %v\n", slices, cap(slices), len(slices))
+	fmt.Println("Appending 6 in slices")
+	// The underlying array will be doubled in size after appending one element, making illusion of dynamically sized array
+	slices = append(slices, 6);
+	fmt.Printf("The capacity of slice %v is %d and its length is %v\n", slices, cap(slices), len(slices))
+
+	var zeroSlice []int;
+	fmt.Printf("Zero slice: %v, and is nil: %t\n", zeroSlice, zeroSlice == nil);
+
+	emptySlice := []int{};
+	fmt.Printf("Empty slice: %v, and is nil: %t\n", emptySlice, emptySlice == nil);
+}
