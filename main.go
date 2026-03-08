@@ -73,8 +73,8 @@ func learnSlices() {
 	fmt.Printf("The capacity of slice %v is %d and its length is %v\n", slices, cap(slices), len(slices))
 
 	var zeroSlice []int;
-	fmt.Printf("Zero slice: %v, and is nil: %t\n", zeroSlice, zeroSlice == nil);
+	fmt.Printf("Zero slice: %v, and is nil: %t. Capacity: %d, Length: %d\n", zeroSlice, zeroSlice == nil, cap(zeroSlice), len(zeroSlice));
 
 	emptySlice := []int{};
-	fmt.Printf("Empty slice: %v, and is nil: %t\n", emptySlice, emptySlice == nil);
+	fmt.Printf("Empty slice: %v, and is nil: %t. Capacity: %d, Length: %d\n", emptySlice, emptySlice == nil, cap(emptySlice), len(emptySlice));
 }
