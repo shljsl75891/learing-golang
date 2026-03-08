@@ -8,6 +8,18 @@
 - `float64`
 - `string`
 
+## Zero Values
+
+In GO programming language, zero value of any variable is the value of that variable's type when only declared without initialization.
+
+| Type                                           | Zero Value                   |
+| ---------------------------------------------- | ---------------------------- |
+| `int`, `float64`                               | `0`                          |
+| `bool`                                         | `false`                      |
+| `string`                                       | `""` (empty string)          |
+| `pointer`, `slice`, `map`, `chan`, `interface` | `nil`                        |
+| `struct`                                       | each field is its zero value |
+
 ## CPU Performance and Memory Management
 
 - Go compiles faster than other compiled languages like C, Rust, C++ but its execution speed is slower than them due to go runtime. Whenever a go file is compiled, a small runtime is also always added into every go executable. This runtime is responsible for memory management, goroutine scheduling and other features of the language. But, it is much faster then interpreted languages like Python and JavaScript.
