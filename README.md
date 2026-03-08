@@ -151,6 +151,8 @@ Each function should be responsible for its error handling, and returning the er
 
 Arrays are fixed size contiguous block of memory, while slices are dynamic size and more flexible. Slices are built on top of arrays and provide a more convenient way to work with sequences of data. They have three components: a pointer to the underlying array, the length of the slice (number of elements in the slice), and the capacity of the slice (the maximum number of elements that can be stored in the underlying array starting from the pointer). When you append to a slice and it exceeds its capacity, Go automatically creates a new underlying array with double the capacity, copies the existing elements to it, and updates the slice's pointer and capacity accordingly.
 
+> In Go, all values are passed by value unless explicitly passed by reference. When you pass an array to a function, a copy of the entire array is made, which can be inefficient for large arrays. However, when you pass a slice, you are passing a copy of the slice header (which contains a pointer to the underlying array, its length, and capacity). Since the slice header is small and points to the same underlying array, it behaves like passing by reference. Modifying the slice within the function will affect the original data in the underlying array.
+
 #### Variadic Function
 
 Just like a spread operator in javascript. We can any aribitrary number of arguments to a function using `...` syntax. The arguments becomes a slice of the specified type. Eg. `fmt.Println`, `fmt.Sprintf` etc. are variadic functions.
