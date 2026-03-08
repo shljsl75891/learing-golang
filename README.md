@@ -208,3 +208,11 @@ hits := make(map[Key]int)
 hits[Key{"/", "vn"}]++
 n := hits[Key{"/ref/spec", "ch"}]
 ```
+
+## Strings, bytes, runes and characters in Go
+
+## Pointers
+
+Recalling, I learnt following in C++.
+
+![](/assets/2026-03-08-17-56-54.png)
