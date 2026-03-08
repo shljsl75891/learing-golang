@@ -211,8 +211,18 @@ n := hits[Key{"/ref/spec", "ch"}]
 
 ## Strings, bytes, runes and characters in Go
 
+- [ ] [GO Strings, Bytes, Characters and Runes](https://go.dev/blog/strings)
+- [ ] [Absolute Minimum to Know about Unicode and Character Sets](https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/)
+
 ## Pointers
 
 Recalling, I learnt following in C++.
 
 ![](/assets/2026-03-08-17-56-54.png)
+
+- In GO, there is no concept of reference variable. So, `&` operator is only used to get the memory address of a variable.
+- In GO, there are two use cases of `*` operator:
+  - To declare a pointer variable, we use `*` before the type. For example, `var p *int` declares a pointer to an integer.
+  - To dereference a pointer, we use `*` before the pointer variable. For example, if `p` is a pointer to an integer, `*p` gives us the value stored at that memory address.
+
+> Selector expressions = Shorthand syntax to access fields of structs. Eg. `analytics.MessagesTotal = (*analytics).MessagesTotal`.
