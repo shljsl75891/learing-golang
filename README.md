@@ -189,3 +189,20 @@ func main() {
   > Always use `append` function on the same slice the result is assigned to. Otherwise, it can lead to unexpected behavior if underlying array has enough capacity to fill new elements, and more than 1 slice is pointing to same underlying array. As, `append` function changes underlying array if it has enough capacity for newer elements.
 
 ![](/assets/2026-03-08-14-29-33.png)
+
+## Maps
+
+- In GO programming language, maps are built-in data structures that provide a way to store and retrieve key-value pairs.
+- Similar to slices, they also behave like passed by reference to a function call due to its internal structure.
+- In GO, except `slices`, `maps` and `functions`, all other types are comparable using `==` operator such as `bool`, `int`, `string`, `pointer`, `channel`, and `interface`. Even `struct` and `array` are also comparable if all their fields or elements are comparable. According to language specification, all comparable types are eligible to be used as keys in a map.
+
+```go
+type Key struct {
+    Path, Country string
+}
+
+// for storing number of hits by each path and country combination
+hits := make(map[Key]int)
+hits[Key{"/", "vn"}]++
+n := hits[Key{"/ref/spec", "ch"}]
+```
