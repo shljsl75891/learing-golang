@@ -120,8 +120,9 @@ In Go, the struct sit in memory in contiguous block with fields one after anothe
 
 So, the order of fields in struct can affect the memory layout and performance. To minimize padding and optimize memory usage, it is generally recommended to order fields from largest to smallest size.
 
+> [!TIP]
 > Empty Structs are the smallest possible type in Go. It takes 0 bytes of memory
->
+
 > ```go
 > type empty struct {}
 > empty 1 := empty{}
@@ -151,6 +152,7 @@ Each function should be responsible for its error handling, and returning the er
 
 Arrays are fixed size contiguous block of memory, while slices are dynamic size and more flexible. Slices are built on top of arrays and provide a more convenient way to work with sequences of data. They have three components: a pointer to the underlying array, the length of the slice (number of elements in the slice), and the capacity of the slice (the maximum number of elements that can be stored in the underlying array starting from the pointer). When you append to a slice and it exceeds its capacity, Go automatically creates a new underlying array with double the capacity, copies the existing elements to it, and updates the slice's pointer and capacity accordingly.
 
+> [!NOTE]
 > In Go, all values are passed by value unless explicitly passed by reference. When you pass an array to a function, a copy of the entire array is made, which can be inefficient for large arrays. However, when you pass a slice, you are passing a copy of the slice header (which contains a pointer to the underlying array, its length, and capacity). Since the slice header is small and points to the same underlying array, it behaves like passing by reference. Modifying the slice within the function will affect the original data in the underlying array.
 
 #### Variadic Function
@@ -186,7 +188,9 @@ func main() {
 
 - The `make` function is used to create slices, maps, and channels in Go. This is used to pre-allocate slice with a specified length and capacity. It is more efficient than using `append` to create a slice from an array when you know the size of the slice in advance, as it avoids the overhead of multiple allocations and copying that can occur when appending to a slice.
 - The `append` function is used to add elements to the end of a slice. It is variadic function as well. It takes a slice and one or more values to append, and returns a new slice with the values added. If the capacity of the original slice is exceeded, `append` will create a new underlying array with double the capacity, copy the existing elements to it, and update the slice's pointer and capacity accordingly.
-  > Always use `append` function on the same slice the result is assigned to. Otherwise, it can lead to unexpected behavior if underlying array has enough capacity to fill new elements, and more than 1 slice is pointing to same underlying array. As, `append` function changes underlying array if it has enough capacity for newer elements.
+
+> [!CAUTION]
+> Always use `append` function on the same slice the result is assigned to. Otherwise, it can lead to unexpected behavior if underlying array has enough capacity to fill new elements, and more than 1 slice is pointing to same underlying array. As, `append` function changes underlying array if it has enough capacity for newer elements.
 
 ![](/assets/2026-03-08-14-29-33.png)
 
@@ -225,6 +229,38 @@ Recalling, I learnt following in C++.
   - To declare a pointer variable, we use `*` before the type. For example, `var p *int` declares a pointer to an integer.
   - To dereference a pointer, we use `*` before the pointer variable. For example, if `p` is a pointer to an integer, `*p` gives us the value stored at that memory address.
 
+> [!NOTE]
 > Selector expressions = Shorthand syntax to access fields of structs. Eg. `analytics.MessagesTotal = (*analytics).MessagesTotal`. We were using this unconsciously using receiver functions on structs. They are also called **Pointer Receivers**.
 
 **_NOTE_**: Deferencing a `nil` pointer can lead to crashing program at runtime due to `panic`. It is always good practice to check if pointer is `nil` before dereferencing it.
+
+## Packages and Modules
+
+> [!WARNING]
+> Only capitalized names are exported, meaning they can be accessed by other packages. Uncapitalized names are private.
+
+- Every go file belongs to a package. Till now, we were writting `package main` in our go files. This main package generally have entry point `main()` function. Any other package name is just a library to export a set of functionalitues. There is no concept of entry point in other packages. Only, the `main` package is converted into executable binary when compiled. A package is just a directory of go code that's all compiled together. Functions, types, variables, and constants defined in one source file are visible to all other source files within the same package
+
+> Package names convention = The package name should be same as the last element of the import path. For example, if we have a package located at `github.com/username/mypackage`, the package name should be `mypackage`. Although, any package name is allowed by compiler, but it is discourage for the sake of readability and consistency in codebase. We can use local aliases like `import m "github.com/username/mypackage"` to import package with different name in our codebase.
+
+- A repository can have multiple modules, and each module can have multiple packages. A module is a collection of related Go packages that are versioned together as a single unit. A file named `go.mod` is used to define a module and its dependencies. It has the following things mainly:
+  - The module path, which is the import path prefix for all packages within the module.
+  - The Go version that the module is compatible with.
+  - A optional list of dependencies, which are other modules that the current module depends on. Each dependency is specified with its module path and version.
+
+> **_IMPORT PATH = MODULE PATH + PACKAGE PATH._**. The packages in the standard library do not have a module path prefix, as they are built into the go distribution itself. The path of package's directory determines the import path and download path of the package in case of remote packages.
+
+> [!TIP]
+> `go run` command is used to quickly compile and run go package named `main`. The compiled binary is stored in temporary directory and is deleted after execution. Use it for quick debugging and testing on local
+
+##### Remote Packages
+
+The advisable way to use packages is to publish them as remote packages. For local development, we can use `replace` directive in `go.mod` file to replace the module path with a local directory path. This is useful when we are developing a module locally and want to test it without publishing it to a remote repository
+
+```
+WHERE SHOULD GO ACTUALLY FIND IT?
+replace example.com/username/mystrings v0.0.0 => ../mystrings =========> This directive is used to replace the module path with a local directory path.
+
+WHAT DOES MY MODULE DEPEND ON?
+require example.com/username/mystrings v0.0.0
+```
